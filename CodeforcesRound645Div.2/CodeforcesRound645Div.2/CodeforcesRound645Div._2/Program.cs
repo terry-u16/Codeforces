@@ -13,7 +13,7 @@ namespace CodeforcesRound645Div._2
     {
         static void Main(string[] args)
         {
-            IAtCoderQuestion question = new QuestionD();
+            IAtCoderQuestion question = new QuestionC();
             var answers = question.Solve(Console.In);
 
             var writer = new StreamWriter(Console.OpenStandardOutput()) { AutoFlush = false };

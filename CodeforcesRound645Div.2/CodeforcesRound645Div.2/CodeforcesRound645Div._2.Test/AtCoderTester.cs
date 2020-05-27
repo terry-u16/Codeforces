@@ -52,8 +52,15 @@ namespace CodeforcesRound645Div._2.Test
             Assert.Equal(outputs, answers);
         }
 
-        //[Theory]
-        //[InlineData(@"", @"")]
+        [Theory]
+        [InlineData(@"4
+1 1 2 2
+1 2 2 4
+179 1 179 100000
+5 7 5 7", @"2
+3
+1
+1")]
         public void QuestionCTest(string input, string output)
         {
             var outputs = SplitByNewLine(output);

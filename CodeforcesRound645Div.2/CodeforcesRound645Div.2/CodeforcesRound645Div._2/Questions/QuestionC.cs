@@ -12,7 +12,13 @@ namespace CodeforcesRound645Div._2.Questions
     {
         public override IEnumerable<object> Solve(TextReader inputStream)
         {
-            throw new NotImplementedException();
+            var times = inputStream.ReadInt();
+
+            for (int t = 0; t < times; t++)
+            {
+                var (x1, y1, x2, y2) = inputStream.ReadValue<long, long, long, long>();
+                yield return (x2 - x1) * (y2 - y1) + 1;
+            }
         }
     }
 }

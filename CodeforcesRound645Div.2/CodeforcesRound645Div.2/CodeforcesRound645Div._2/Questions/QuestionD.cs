@@ -15,72 +15,52 @@ namespace CodeforcesRound645Div._2.Questions
         {
             var (months, vacation) = inputStream.ReadValue<int, long>();
             var daysPerMonths = inputStream.ReadIntArray();
-            daysPerMonths = daysPerMonths.Concat(daysPerMonths).ToArray();
+            daysPerMonths = Enumerable.Repeat(0, 1).Concat(daysPerMonths).Concat(daysPerMonths).ToArray();
 
-            long days = 0;
-            var lastMonth = -1;
-            for (int month = 0; month < daysPerMonths.Length; month++)
+            var daysPrefixSum = new long[daysPerMonths.Length];
+            var hugsPrefixSum = new long[daysPerMonths.Length];
+
+            for (int i = 1; i < daysPerMonths.Length; i++)
             {
-                if (days + daysPerMonths[month] < vacation)
-                {
-                    days += daysPerMonths[month];
-                }
-                else
-                {
-                    break;
-                }
-
-                lastMonth = month;
+                daysPrefixSum[i] = daysPrefixSum[i - 1] + daysPerMonths[i];
+                hugsPrefixSum[i] = hugsPrefixSum[i - 1] + GetHugCount(daysPerMonths[i]);
             }
 
-            // 0月頭～
             long maxHugs = 0;
-            long lastHugs = 0;
-
-            for (int month = 0; month <= lastMonth; month++)
+            for (int month = 1; month < daysPrefixSum.Length; month++)
             {
-                lastHugs += GetHugCount(daysPerMonths[month]);
-            }
-            lastHugs += GetHugCount(vacation - days);
-            days = vacation - days;
-            maxHugs = lastHugs;
-            if (days == daysPerMonths[lastMonth + 1])
-            {
-                days = 0;
-                lastMonth++;
-            }
-
-            // ～n月終わり
-            var beginMonth = 0;
-            var beginDay = 0;
-            
-            for (int month = lastMonth + 1; month < daysPerMonths.Length; month++)
-            {
-                long hugs = lastHugs;
-                var proceed = daysPerMonths[month] - days;
-                hugs += GetHugCount(days + 1, daysPerMonths[month]);
-
-                while (proceed > 0)
+                if (daysPrefixSum[month] < vacation)
                 {
-                    var proceedLocal = Math.Min(proceed, daysPerMonths[beginMonth] - beginDay);
-                    hugs -= GetHugCount(beginDay, beginDay + proceedLocal);
-                    if (beginDay + proceedLocal == daysPerMonths[beginMonth])
-                    {
-                        beginMonth++;
-                        beginDay = 0;
-                    }
-                    else
-                    {
-                        beginDay += (int)proceedLocal;
-                    }
-                    proceed -= proceedLocal;
+                    continue;
                 }
 
-                days = 0;
+                var includedMonth = BoundaryBinarySearch(daysPrefixSum, d => d >= daysPrefixSum[month] - vacation, 0, daysPrefixSum.Length);
+                var backDate = vacation - (daysPrefixSum[month] - daysPrefixSum[includedMonth]);
+                var hugs = hugsPrefixSum[month] - hugsPrefixSum[includedMonth] + GetHugCount(daysPerMonths[includedMonth] - backDate + 1, daysPerMonths[includedMonth]);
                 maxHugs = Math.Max(maxHugs, hugs);
             }
 
             yield return maxHugs;
+        }
+
+        private static int BoundaryBinarySearch<T>(T[] array, Predicate<T> predicate, int ng, int ok)
+        {
+            // めぐる式二分探索
+            // Span.BinarySearchだとできそうでできない（lower_boundがダメ）
+            while (Math.Abs(ok - ng) > 1)
+            {
+                int mid = (ok + ng) / 2;
+
+                if (predicate(array[mid]))
+                {
+                    ok = mid;
+                }
+                else
+                {
+                    ng = mid;
+                }
+            }
+            return ok;
         }
 
         long GetHugCount(long endDay) => ((endDay + 1) * endDay) / 2;
