@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound088Div2", "EducationalCodeforcesRound088Div2\EducationalCodeforcesRound088Div2\EducationalCodeforcesRound088Div2.csproj", "{ABA91D73-A870-4C08-9052-D9CEB4714C5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound088Div2.Test", "EducationalCodeforcesRound088Div2\EducationalCodeforcesRound088Div2.Test\EducationalCodeforcesRound088Div2.Test.csproj", "{9932F4AE-B686-4E81-9770-629CD5080502}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABA91D73-A870-4C08-9052-D9CEB4714C5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABA91D73-A870-4C08-9052-D9CEB4714C5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABA91D73-A870-4C08-9052-D9CEB4714C5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABA91D73-A870-4C08-9052-D9CEB4714C5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9932F4AE-B686-4E81-9770-629CD5080502}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9932F4AE-B686-4E81-9770-629CD5080502}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9932F4AE-B686-4E81-9770-629CD5080502}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9932F4AE-B686-4E81-9770-629CD5080502}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0CC08F87-893D-4109-9100-2060129F417A}
+	EndGlobalSection
+EndGlobal
