@@ -93,8 +93,16 @@ namespace EducationalCodeforcesRound87.Test
         }
 
 
-        //[Theory]
-        //[InlineData(@"", @"")]
+        [Theory]
+        [InlineData(@"5 5
+1 2 3 4 5
+-1 -1 -1 -1 -1", @"0")]
+        [InlineData(@"5 4
+1 2 3 4 5
+-5 -1 -3 -1", @"3")]
+        [InlineData(@"6 2
+1 1 1 2 3 4
+5 6", @"6")]
         public void QuestionDTest(string input, string output)
         {
             var outputs = SplitByNewLine(output);
