@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound64", "EducationalCodeforcesRound64\EducationalCodeforcesRound64\EducationalCodeforcesRound64.csproj", "{842E78EE-B3A3-4CF1-A91D-0BB2134BADC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound64.Test", "EducationalCodeforcesRound64\EducationalCodeforcesRound64.Test\EducationalCodeforcesRound64.Test.csproj", "{34C809F0-C9C8-4A22-988B-D5E1111F3530}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{842E78EE-B3A3-4CF1-A91D-0BB2134BADC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842E78EE-B3A3-4CF1-A91D-0BB2134BADC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842E78EE-B3A3-4CF1-A91D-0BB2134BADC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842E78EE-B3A3-4CF1-A91D-0BB2134BADC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34C809F0-C9C8-4A22-988B-D5E1111F3530}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34C809F0-C9C8-4A22-988B-D5E1111F3530}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34C809F0-C9C8-4A22-988B-D5E1111F3530}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34C809F0-C9C8-4A22-988B-D5E1111F3530}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C849C6BE-B543-4DDE-9111-D5416C3EB8B6}
+	EndGlobalSection
+EndGlobal
