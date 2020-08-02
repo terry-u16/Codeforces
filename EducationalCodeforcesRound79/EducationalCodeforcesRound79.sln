@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound79", "EducationalCodeforcesRound79\EducationalCodeforcesRound79\EducationalCodeforcesRound79.csproj", "{1BC8C668-51FF-43D2-95C4-1DD776586672}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationalCodeforcesRound79.Test", "EducationalCodeforcesRound79\EducationalCodeforcesRound79.Test\EducationalCodeforcesRound79.Test.csproj", "{6195E495-1823-426E-B728-C23F72938558}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1BC8C668-51FF-43D2-95C4-1DD776586672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BC8C668-51FF-43D2-95C4-1DD776586672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BC8C668-51FF-43D2-95C4-1DD776586672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BC8C668-51FF-43D2-95C4-1DD776586672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6195E495-1823-426E-B728-C23F72938558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6195E495-1823-426E-B728-C23F72938558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6195E495-1823-426E-B728-C23F72938558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6195E495-1823-426E-B728-C23F72938558}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4AE4FEAD-FF26-451C-B184-6976725FC5F5}
+	EndGlobalSection
+EndGlobal
