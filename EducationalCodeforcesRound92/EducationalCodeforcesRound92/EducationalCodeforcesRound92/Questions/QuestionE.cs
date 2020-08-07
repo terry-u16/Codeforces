@@ -22,5 +22,22 @@ namespace EducationalCodeforcesRound92.Questions
 
             }
         }
+
+        public static long Gcd(long a, long b)
+        {
+            if (a < b)
+            {
+                (a, b) = (b, a);
+            }
+
+            if (b == 0)
+            {
+                return a;
+            }
+            else
+            {
+                return Gcd(b, a % b);
+            }
+        }
     }
 }

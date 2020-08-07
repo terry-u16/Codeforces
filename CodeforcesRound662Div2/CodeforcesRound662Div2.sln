@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeforcesRound662Div2", "CodeforcesRound662Div2\CodeforcesRound662Div2\CodeforcesRound662Div2.csproj", "{AD8148D3-C742-40C2-8FA7-618EA4D84075}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeforcesRound662Div2.Test", "CodeforcesRound662Div2\CodeforcesRound662Div2.Test\CodeforcesRound662Div2.Test.csproj", "{1E00B1F0-4BB3-4A45-BF2E-45E9E7D16C67}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD8148D3-C742-40C2-8FA7-618EA4D84075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD8148D3-C742-40C2-8FA7-618EA4D84075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD8148D3-C742-40C2-8FA7-618EA4D84075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD8148D3-C742-40C2-8FA7-618EA4D84075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E00B1F0-4BB3-4A45-BF2E-45E9E7D16C67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E00B1F0-4BB3-4A45-BF2E-45E9E7D16C67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E00B1F0-4BB3-4A45-BF2E-45E9E7D16C67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E00B1F0-4BB3-4A45-BF2E-45E9E7D16C67}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3AC0380F-864F-4BF2-BAC0-B228AD0C1242}
+	EndGlobalSection
+EndGlobal
