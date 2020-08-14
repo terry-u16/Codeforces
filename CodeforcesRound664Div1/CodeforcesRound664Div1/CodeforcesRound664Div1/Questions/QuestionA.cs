@@ -14,7 +14,7 @@ namespace CodeforcesRound664Div1.Questions
     {
         public override IEnumerable<object> Solve(TextReader inputStream)
         {
-            var (totalDays, muzzleDulation, threshold) = inputStream.ReadValue<int, int, int>();
+            var (totalDays, muzzleDulation, threshold) = inputStream.ReadValue<int, long, int>();
             var a = inputStream.ReadLongArray();
             Array.Sort(a);
             Array.Reverse(a);
@@ -43,32 +43,16 @@ namespace CodeforcesRound664Div1.Questions
 
             long max = 0;
 
-            for (int muzzledCount = 1; muzzledCount <= Math.Min((totalDays - 1) / (muzzleDulation + 1), muzzledA.Length - 1); muzzledCount++)
+            for (int muzzledCount = 0; muzzledCount <= muzzledA.Length; muzzledCount++)
             {
-                var occupied = 1 + (muzzledCount * (muzzleDulation + 1));
-                if (totalDays - occupied < 0 || totalDays - occupied >= nonmuzzledA.Length)
+                var occupied = muzzledCount + (muzzledCount - 1) * muzzleDulation;
+                if (totalDays - occupied < 0)
                 {
-                    continue;
+                    break;
                 }
 
-                var result = muzzledPrefixSum[muzzledCount + 1] + nonMuzzledPrefixSum[totalDays - occupied];
+                var result = muzzledPrefixSum[muzzledCount] + nonMuzzledPrefixSum[Math.Min(totalDays - occupied, nonMuzzledPrefixSum.Length - 1)];
                 max = Math.Max(max, result);
-            }
-
-            for (int muzzledCount = 1; muzzledCount < muzzledA.Length; muzzledCount++)
-            {
-                var covered = muzzledA.Length - muzzledCount;
-                if (covered > muzzledCount * muzzleDulation || covered < (muzzledCount - 1) * muzzleDulation)
-                {
-                    continue;
-                }
-
-                max = Math.Max(max, muzzledPrefixSum[muzzledCount] + nonMuzzledPrefixSum[nonMuzzledPrefixSum.Length - 1]);
-            }
-
-            if (muzzledA.Length >= 1)
-            {
-                max = Math.Max(max, muzzledA[0] + nonMuzzledPrefixSum[nonMuzzledPrefixSum.Length - 1]);
             }
 
             yield return max;

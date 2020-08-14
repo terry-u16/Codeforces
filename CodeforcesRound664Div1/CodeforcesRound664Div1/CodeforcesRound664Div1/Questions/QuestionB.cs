@@ -13,18 +13,13 @@ namespace CodeforcesRound664Div1.Questions
 {
     public class QuestionB : AtCoderQuestionBase
     {
+        int nodeCount, edgeCount, maxOut;
+        ulong finalState;
+        ulong[][] hashes;
+
         public override IEnumerable<object> Solve(TextReader inputStream)
         {
-            var (nodeCount, edgeCount, maxOut) = inputStream.ReadValue<int, int, int>();
-            var ngs = new HashSet<Pair>[maxOut][];
-            for (int i = 0; i < ngs.Length; i++)
-            {
-                ngs[i] = new HashSet<Pair>[i + 1];
-                for (int j = 0; j < ngs[i].Length; j++)
-                {
-                    ngs[i][j] = new HashSet<Pair>();
-                }
-            }
+            (nodeCount, edgeCount, maxOut) = inputStream.ReadValue<int, int, int>();
 
             var graph = new List<Edge>[nodeCount];
             for (int i = 0; i < graph.Length; i++)
@@ -40,122 +35,42 @@ namespace CodeforcesRound664Div1.Questions
                 graph[u].Add(new Edge(v, w));
             }
 
-            var sets = Enumerable.Repeat(0, nodeCount).Select(_ => new HashSet<Pair>()).ToArray();
+            var random = new XorShift();
+            var states = new ulong[nodeCount];
+            finalState = 0;
+            for (int i = 0; i < states.Length; i++)
+            {
+                states[i] = random.Next();
+                finalState ^= states[i];
+            }
 
-            for (int i = 0; i < nodeCount; i++)
+            hashes = Enumerable.Range(1, maxOut).Select(i => new ulong[i]).ToArray();
+            for (int i = 0; i < graph.Length; i++)
             {
                 graph[i].Sort();
                 for (int j = 0; j < graph[i].Count; j++)
                 {
-                    sets[graph[i][j].To].Add(new Pair(graph[i].Count - 1, j));
+                    hashes[graph[i].Count - 1][j] ^= states[graph[i][j].To];
                 }
             }
 
-            for (int i = 0; i < nodeCount; i++)
-            {
-                var list = sets[i].OrderBy(p => p).ToArray();
-                for (int j = 0; j < list.Length; j++)
-                {
-                    for (int k = j + 1; k < list.Length; k++)
-                    {
-                        ngs[list[j].K][list[j].C].Add(new Pair(list[k].K, list[k].C));
-                    }
-                }
-            }
-
-            var currentNgs = Enumerable.Repeat(0, maxOut).Select(_ => new int[maxOut]).ToArray();
-            yield return Dfs(0, maxOut, ngs, currentNgs);
+            yield return Dfs(0, 0);
         }
 
-        int Dfs(int current, int max, HashSet<Pair>[][] ngs, int[][] currentNg)
+        int Dfs(int depth, ulong hash)
         {
-            if (current == max)
+            if (depth == maxOut)
             {
-                return 1;
+                return hash == finalState ? 1 : 0;
             }
-
-            var total = 0;
-            for (int c = 0; c <= current; c++)
+            else
             {
-                if (currentNg[current][c] > 0)
+                int result = 0;
+                for (int i = 0; i <= depth; i++)
                 {
-                    continue;
+                    result += Dfs(depth + 1, hash ^ hashes[depth][i]);
                 }
-
-                foreach (var ng in ngs[current][c])
-                {
-                    currentNg[ng.K][ng.C]++;
-                }
-
-                total += Dfs(current + 1, max, ngs, currentNg);
-                foreach (var ng in ngs[current][c])
-                {
-                    currentNg[ng.K][ng.C]--;
-                }
-
-            }
-
-            return total;
-        }
-
-        [StructLayout(LayoutKind.Auto)]
-        struct Pair : IEquatable<Pair>, IComparable<Pair>
-        {
-            public int K { get; }
-            public int C { get; }
-
-            public Pair(int k, int c)
-            {
-                K = k;
-                C = c;
-            }
-
-            public void Deconstruct(out int k, out int c) => (k, c) = (K, C);
-            public override string ToString() => $"{nameof(K)}: {K}, {nameof(C)}: {C}";
-
-            public override bool Equals(object obj)
-            {
-                return obj is Pair pair && Equals(pair);
-            }
-
-            public bool Equals(Pair other)
-            {
-                return K == other.K &&
-                       C == other.C;
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    int hashCode = -503916532;
-                    hashCode = hashCode * -1521134295 + K.GetHashCode();
-                    hashCode = hashCode * -1521134295 + C.GetHashCode();
-                    return hashCode;
-                }
-            }
-
-            public int CompareTo(Pair other)
-            {
-                var comp = K - other.K;
-                if (comp != 0)
-                {
-                    return comp;
-                }
-                else
-                {
-                    return C - other.C;
-                }
-            }
-
-            public static bool operator ==(Pair left, Pair right)
-            {
-                return left.Equals(right);
-            }
-
-            public static bool operator !=(Pair left, Pair right)
-            {
-                return !(left == right);
+                return result;
             }
         }
 
@@ -202,6 +117,51 @@ namespace CodeforcesRound664Div1.Questions
                     return 36 + c;
                 default:
                     return -1;
+            }
+        }
+
+        public class XorShift
+        {
+            ulong _x;
+
+            public XorShift() : this((ulong)DateTime.Now.Ticks) { }
+
+            public XorShift(ulong seed)
+            {
+                _x = seed;
+            }
+
+            /// <summary>
+            /// [0, (2^64)-1)の乱数を生成します。
+            /// </summary>
+            /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public ulong Next()
+            {
+                _x = _x ^ (_x << 13);
+                _x = _x ^ (_x >> 7);
+                _x = _x ^ (_x << 17);
+                return _x;
+            }
+
+            /// <summary>
+            /// [0, <c>exclusiveMax</c>)の乱数を生成します。
+            /// </summary>
+            /// <param name="exclusiveMax"></param>
+            /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public int Next(int exclusiveMax) => (int)(Next() % (uint)exclusiveMax);
+
+            /// <summary>
+            /// [0.0, 1.0)の乱数を生成します。
+            /// </summary>
+            /// <returns></returns>
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            public double NextDouble()
+            {
+                const ulong max = 1UL << 50;
+                const ulong mask = max - 1;
+                return (double)(Next() & mask) / max;
             }
         }
     }
