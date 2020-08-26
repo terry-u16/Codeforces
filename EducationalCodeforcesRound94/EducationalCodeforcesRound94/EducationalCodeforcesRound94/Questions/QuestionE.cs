@@ -15,67 +15,44 @@ namespace EducationalCodeforcesRound94.Questions
         public override IEnumerable<object> Solve(TextReader inputStream)
         {
             var n = inputStream.ReadInt();
-            var a = new int[] { 0 }.Concat(inputStream.ReadIntArray()).Concat(new int[] { 0 }).ToArray();
-
-            var wildCards = new bool[a.Length];
-            var minOperations = Math.Min(EraseVertical(a, wildCards), EraseHorizontal(a, wildCards));
-            var currentOperations = 0;
-
-            while (true)
-            {
-                currentOperations++;
-                var index = FindBottleNeckIndex(a, wildCards);
-
-                if (index >= 0)
-                {
-                    wildCards[index] = true;
-                    minOperations = Math.Min(minOperations, EraseHorizontal(a, wildCards) + currentOperations);
-                }
-                else
-                {
-                    break;
-                }
-            }
-
-            yield return minOperations;
+            var a = inputStream.ReadIntArray();
+            yield return Count(a, 0, a.Length);
         }
 
-        int FindBottleNeckIndex(int[] a, bool[] wildCards)
+        long Count(int[] a, int left, int right)
         {
-            var max = 0;
-            int index = -1;
-            var neck = new int[a.Length];
-
-            var current = 0;
-            for (int i = 1; i + 1 < a.Length; i++)
+            if (left == right)
             {
-                if (!wildCards[i])
-                {
-                    var exists = Math.Max(a[i] - current, 0) + (wildCards[i + 1] ? 0 : Math.Max(a[i + 1] - a[i], 0));
-                    var notExists = wildCards[i + 1] ? 0 : Math.Max(a[i + 1] - current, 0);
-                    neck[i] = exists - notExists;
-                    current = a[i];
-                }
+                return 0;
             }
-
-            for (int i = 0; i < a.Length; i++)
+            else if (left + 1 == right)
             {
-                if (neck[i] > max)
-                {
-                    max = neck[i];
-                    index = i;
-                }
+                return a[left] == 0 ? 0 : 1;
             }
+            else
+            {
+                var nonZeros = CountNonZeros(a, left, right);
+                var minIndex = GetMinIndex(a, left, right);
+                var min = a[minIndex];
+                long count = min;
 
-            return index;
+                for (int i = left; i < right; i++)
+                {
+                    a[i] -= min;
+                }
+
+                count += Count(a, left, minIndex);
+                count += Count(a, minIndex + 1, right);
+                return Math.Min(nonZeros, count);
+            }
         }
 
-        long EraseVertical(int[] a, bool[] wildCards)
+        int CountNonZeros(int[] a, int left, int right)
         {
             var count = 0;
-            for (int i = 0; i < a.Length; i++)
+            for (int i = left; i < right; i++)
             {
-                if (a[i] > 0 && !wildCards[i])
+                if (a[i] > 0)
                 {
                     count++;
                 }
@@ -83,24 +60,21 @@ namespace EducationalCodeforcesRound94.Questions
             return count;
         }
 
-        long EraseHorizontal(int[] a, bool[] wildCards)
+        int GetMinIndex(int[] a, int left, int right)
         {
-            var current = 0;
-            long counts = 0L;
+            var min = int.MaxValue;
+            var index = -1;
 
-            for (int i = 0; i < a.Length; i++)
+            for (int i = left; i < right; i++)
             {
-                if (!wildCards[i])
+                if (a[i] < min)
                 {
-                    if (a[i] > current)
-                    {
-                        counts += a[i] - current;
-                    }
-                    current = a[i];
+                    min = a[i];
+                    index = i;
                 }
             }
 
-            return counts;
+            return index;
         }
     }
 }
