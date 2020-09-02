@@ -12,14 +12,14 @@ namespace CodeforcesRound639Div2.Questions
 {
     public class QuestionE : AtCoderQuestionBase
     {
-        List<int>[] invertedGraph;
+        List<int>[] graph, invertedGraph;
         bool[] forwardNg, reverseNg;
 
         public override IEnumerable<object> Solve(TextReader inputStream)
         {
             var (variables, formulas) = inputStream.ReadValue<int, int>();
             var inDegrees = new int[variables];
-            var graph = Enumerable.Repeat(0, variables).Select(_ => new List<int>()).ToArray();
+            graph = Enumerable.Repeat(0, variables).Select(_ => new List<int>()).ToArray();
             invertedGraph = Enumerable.Repeat(0, variables).Select(_ => new List<int>()).ToArray();
 
             for (int f = 0; f < formulas; f++)
@@ -71,12 +71,12 @@ namespace CodeforcesRound639Div2.Questions
 
         void ForwardDfs(int current)
         {
-            foreach (var next in invertedGraph[current])
+            foreach (var next in graph[current])
             {
                 if (!forwardNg[next])
                 {
                     forwardNg[next] = true;
-                    ReverseDfs(next);
+                    ForwardDfs(next);
                 }
             }
         }
